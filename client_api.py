@@ -8,7 +8,7 @@ class clientapi:
         self.url=url
     def recup_ip(self):
         try:
-            rep=requests.get(self.url,Timeout=5)
+            rep=requests.get(self.url, timeout=5)
             if rep.status_code !=  200:
                 print("Erreur HTTP :",rep.status_code)
                 return None
