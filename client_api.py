@@ -26,11 +26,11 @@ class clientapi:
                 except ValueError:
                     version = ""
             return adresseip(
-                ip="ip",
-                version="version", 
-                pays="pays", 
-                ville="ville", 
-                fournisseur="fournisseur",
+                ip=ip,
+                version=version, 
+                pays=pays, 
+                ville=ville, 
+                fournisseur=fournisseur,
                 
             )
         except requests.RequestException as Erreur:
