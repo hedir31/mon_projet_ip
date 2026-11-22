@@ -36,3 +36,32 @@ class clientapi:
         except requests.RequestException as Erreur:
             print("Erreur de connexion :", Erreur)
             return None
+    def recup_ip_specifique(self, ip_cible):
+        try:
+            url_cible = f"https://ipinfo.io/{ip_cible}/json"
+            rep = requests.get(url_cible, timeout=5)
+            if rep.status_code != 200:
+                print("Erreur HTTP : ", rep.status_code)
+                return None
+            dnnee = rep.json()
+            ip = dnnee.get("ip", "")
+            pays = dnnee.get("country", "")
+            ville = dnnee.get("city", "")
+            fournisseur = dnnee.get("org", "")
+            version = ""
+            if ip:
+                try:
+                    addr = ipaddress.ip_address(ip)
+                    version = "IPV4" if addr.version == 4 else "IPV6"
+                except ValueError:
+                    version = ""
+            return adresseip(
+                ip=ip,
+                version=version,
+                pays=pays,
+                ville=ville,
+                fournisseur=fournisseur,
+            )
+        except requests.RequestException as Erreur:
+            print("Erreur de connexion :", Erreur)
+            return None

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Info IP </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'style.css' )}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+    <div class="boite">
+        <div class="panneau">
+            <h2>Explorateur d'adresses IP</h2>
+            <p>Saisissez une ou plusieurs adresses IP separees par une virgule (ou laissez vide pour votre IP.</p>
+            <form method="POST" id="form-ip", class="ligne-form">
+                <input type="text" id="champ-ips" name="ips" value="{{ent}}" placeholder="Ex: 8.8.8.8,1.1.1.1">
+                <button type="submit" id="btn-v">Verifier</button>
+
+            </form>
+            <div id="etat-ch" class="etat-ch"></div>
+        </div>
+        {% for e in err %}
+            <div class="erreur" >{{ e }}</div>
+        {% endfor %}
+        <div class="grille">
+            {% for adr in res %}
+            <div class="carte">
+                <h3>{{ adr.ip }}</h3>
+                <p><strong>Version :</strong>{{ adr.version or "Non disponible!"}}</p>
+                <p><strong>Pays :</strong>{{ adr.pays or "Non disponible!"}}</p>
+                <p><strong>Ville :</strong>{{ adr.ville or "Non disponible!"}}</p>
+                <p><strong>Fournisseur :</strong>{{ adr.fournisseur or "Non disponible!"}}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
